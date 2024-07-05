@@ -1,0 +1,38 @@
+* {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+}
+body{
+    display: grid;
+    place-items: center;
+    height: 100vh;
+    color: black;
+}
+@font-face {
+    font-family: PinyonScript;
+    src: url(fonts/PinyonScript-Regular.ttf);
+}
+#main-container{
+    display: grid;
+    height: 100%;
+    width: 100%;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 4fr
+}
+#header{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    background: rgba(218, 13, 61, 0.878);
+    grid-area: 1/1/2/2;
+}
+#header > h1{
+    color: burlywood;
+    font-size: 3em;
+    font-family:'PinyonScript';
+    margin-left: 4vh;
+}
+#book-container{
+    background:radial-gradient(to center, rgb(107, 107, 107),rgba(210, 210, 106, 0.786));
+}
