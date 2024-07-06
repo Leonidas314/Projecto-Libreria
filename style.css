@@ -34,5 +34,17 @@ body{
     margin-left: 4vh;
 }
 #book-container{
-    background:radial-gradient(to center, rgb(107, 107, 107),rgba(210, 210, 106, 0.786));
+    background:radial-gradient(rgba(239, 241, 124, 0.48),rgba(161, 161, 86, 0.786));
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+}
+.book{
+    height: 35vh;
+    width: 35vh;
+    margin-top: 5vh;
+    justify-self: center;
+    background: linear-gradient(to left top, lightgoldenrodyellow,lightgrey);
+    border-radius: 10%;
+    box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.5);
 }
