@@ -13,6 +13,10 @@ body{
     font-family: PinyonScript;
     src: url(fonts/PinyonScript-Regular.ttf);
 }
+@font-face {
+    font-family: Outfit;
+    src: url(fonts/Outfit-VariableFont_wght.ttf);
+}
 #main-container{
     display: grid;
     height: 100%;
@@ -21,8 +25,9 @@ body{
     grid-template-rows: 1fr 4fr
 }
 #header{
-    display: flex;
+    display: grid;
     align-items: center;
+    grid-template-columns: 5fr 1fr;
     justify-content: flex-start;
     background: rgba(218, 13, 61, 0.878);
     grid-area: 1/1/2/2;
@@ -32,6 +37,17 @@ body{
     font-size: 3em;
     font-family:'PinyonScript';
     margin-left: 4vh;
+    grid-area: 1/1/2/2;
+}
+#header > button{
+    grid-area: 1/2/2/3;
+    width: 15vh;
+    height: 5vh;
+    font-family: 'Outfit';
+    color: rgba(218, 13, 61, 0.878);
+    background: rgba(201, 201, 113, 0.833) ;
+    border-radius: 15px;
+    font-size: 1.5em;
 }
 #book-container{
     background:radial-gradient(rgba(239, 241, 124, 0.48),rgba(161, 161, 86, 0.786));
