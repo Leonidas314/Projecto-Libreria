@@ -60,7 +60,10 @@ body{
     width: 35vh;
     margin-top: 5vh;
     justify-self: center;
+    display: flex;
     background: linear-gradient(to left top, lightgoldenrodyellow,lightgrey);
     border-radius: 10%;
     box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
 }
