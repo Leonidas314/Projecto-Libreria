@@ -76,6 +76,14 @@ body{
     justify-content: center;
     align-items: center;
 }
+@keyframes desplazarAlCentro {
+    from {
+        transform: translateY(-100%);
+    }
+    to {
+        transform: translateY(1vh);
+    }
+}
 #form{
     position: absolute;
     width: 60vh;
@@ -86,7 +94,9 @@ body{
     display: grid;
     grid-template-columns: repeat(2 ,1fr);
     grid-template-rows: 4fr 1fr;
+    animation: desplazarAlCentro 1.25s ease-out forwards;
 }
+
 #form > fieldset {
     width: 80%;
     height: 80%;
@@ -126,4 +136,14 @@ body{
     background: rgba(218, 13, 61, 0.878) ;
     border-radius: 15px;
     font-size: 1.5em;;
+}
+.inputs{
+    opacity: 0.5;
+    border-radius: 10px;
+    background: burlywood;
+    height: 2em;
+    font-family: 'Outfit';
+    color: black;
+    font-size: 1.5em;
+    padding-left: 5px;
 }
