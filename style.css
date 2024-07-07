@@ -67,7 +67,15 @@ body{
     justify-content: center;
     align-items: center;
 }
-
+#backScreenForm{
+    background: rgba(0, 0, 0, 0.584);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
 #form{
     position: absolute;
     width: 60vh;
