@@ -18,9 +18,9 @@ function createBookCard(bookObj){
     bookContainer.appendChild(bookdiv)
     const listedBook = document.createElement('ul'), liTitle = document.createElement('li'), liAuthor = document.createElement('li'), liPages = document.createElement('li');
     bookdiv.appendChild(listedBook);
-    liTitle.textContent = "Titulo:"+ bookObj.title;
-    liAuthor.textContent="Author:"+bookObj.author;
-    liPages.textContent="Pages:"+bookObj.pages;
+    liTitle.textContent = "Title: "+ bookObj.title;
+    liAuthor.textContent="Author: "+bookObj.author;
+    liPages.textContent="Pages: "+bookObj.pages;
     listedBook.appendChild(liTitle);
     listedBook.appendChild(liAuthor);
     listedBook.appendChild(liPages);
@@ -28,6 +28,21 @@ function createBookCard(bookObj){
 }
 
 const myBooks = [];
+
+
+//Funcion que crea por defecto tres cartas de libros
+
+function defaultBooks(bookArray){
+    const titles = ["1984","The Hobbit","The Proccess"];
+    const authors = ["G. Orwell","J.R.R. Tolkien", "F. Kafka"];
+    const pages = ["269","310","264"];
+    for (let i = 0; i < titles.length; i++) {
+        const defaultBooks = new NewBook(titles[i],authors[i],pages[i])
+        createBookCard(defaultBooks);
+        bookArray.push(defaultBooks);
+    }
+    return bookArray;
+}
 
 
 const newButton = document.getElementById('new-button');
@@ -67,3 +82,5 @@ addButton.addEventListener('click',function(){
     const formScreen = document.getElementById('backScreenForm');
     formScreen.style.display="none";
 })
+
+defaultBooks(myBooks);

@@ -67,6 +67,14 @@ body{
     justify-content: center;
     align-items: center;
 }
+.book > ul {
+    list-style-type: none;
+    display: flex;
+    font-size: 1.5em;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 5vh;
+}
 #backScreenForm{
     background: rgba(0, 0, 0, 0.584);
     position: absolute;
