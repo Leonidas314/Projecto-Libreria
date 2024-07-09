@@ -11,7 +11,40 @@ function clearInputs(title,author,pages){
     return title.value = "",author.value="",pages.value="";
  }
 
-function createBookCard(bookObj){
+ var xButtons = [];
+ var allchildBooks; console.log(xButtons,allchildBooks);
+ //Funcion que al ser llamada captura al contenedor y a los divs "Books hijos"
+function capturarDiv(captureChild){
+    //Capturar el book-container
+    const bookContainer = document.getElementById("book-container");
+    //Captura los divs hijos del div bookContainer
+    captureChild = bookContainer.children;
+    return captureChild;
+}
+ 
+ //Funcion que pushea en un vector los elementos "x-buttons"
+ function captureXbtns(capturedChild,xVector){
+     for (let i = 0; i < capturedChild.length; i++) {
+         console.log(capturedChild[i].children[1]);
+         xVector.push(capturedChild[i].children[1]);
+     }
+     return xVector
+ }
+ //Obtener el vector
+ //Usar el vector en una funcion para capturar el evento "Click" en cada boton x
+ //Asignar el metodo remove() al div padre del evento capturado al boton correspondiente
+ function captureClickforEach(vector){
+     vector.forEach(xbutton => { xbutton.addEventListener('click',function(){
+         console.log("Click")
+         var divPadre=xbutton.parentNode
+         console.log(divPadre)
+         divPadre.remove();
+     })     
+     });
+ }
+
+
+function createBookCard(bookObj,currentBooks,currentXvectors){
     const bookdiv = document.createElement('div');
     bookdiv.className= 'book';
     const bookContainer = document.getElementById('book-container')
@@ -25,6 +58,13 @@ function createBookCard(bookObj){
     listedBook.appendChild(liAuthor);
     listedBook.appendChild(liPages);
 
+    const deleteButton = document.createElement('button');
+    deleteButton.textContent= "X"
+    deleteButton.className='deleteButton'
+    deleteButton.id='x-button'
+    bookdiv.appendChild(deleteButton);
+
+    captureClickforEach(captureXbtns(capturarDiv(currentBooks),currentXvectors));
 }
 
 const myBooks = [];
@@ -38,7 +78,7 @@ function defaultBooks(bookArray){
     const pages = ["269","310","264"];
     for (let i = 0; i < titles.length; i++) {
         const defaultBooks = new NewBook(titles[i],authors[i],pages[i])
-        createBookCard(defaultBooks);
+        createBookCard(defaultBooks,allchildBooks,xButtons);
         bookArray.push(defaultBooks);
     }
     return bookArray;
@@ -75,7 +115,7 @@ addButton.addEventListener('click',function(){
     let addBook = new NewBook(getTitle.value,getAuthor.value,getPages.value);
     myBooks.push(addBook);
     console.log(myBooks);
-    createBookCard(addBook);
+    createBookCard(addBook,allchildBooks,xButtons);
     //Limpiar inputs
     clearInputs(getTitle,getAuthor,getPages);  
     //Ocultar formulario
@@ -84,3 +124,6 @@ addButton.addEventListener('click',function(){
 })
 
 defaultBooks(myBooks);
+
+captureClickforEach(captureXbtns(capturarDiv(allchildBooks),xButtons));
+console.log(xButtons,allchildBooks);
