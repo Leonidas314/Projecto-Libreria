@@ -6,13 +6,12 @@ function NewBook(title,author,pages,read){
     this.read=read;
 
 }
-
 function clearInputs(title,author,pages){
     return title.value = "",author.value="",pages.value="";
  }
 
  var xButtons = [];
- var allchildBooks; console.log(xButtons,allchildBooks);
+ var allchildBooks; 
  //Funcion que al ser llamada captura al contenedor y a los divs "Books hijos"
 function capturarDiv(captureChild){
     //Capturar el book-container
@@ -25,7 +24,6 @@ function capturarDiv(captureChild){
  //Funcion que pushea en un vector los elementos "x-buttons"
  function captureXbtns(capturedChild,xVector){
      for (let i = 0; i < capturedChild.length; i++) {
-         console.log(capturedChild[i].children[1]);
          xVector.push(capturedChild[i].children[1]);
      }
      return xVector
@@ -35,14 +33,22 @@ function capturarDiv(captureChild){
  //Asignar el metodo remove() al div padre del evento capturado al boton correspondiente
  function captureClickforEach(vector){
      vector.forEach(xbutton => { xbutton.addEventListener('click',function(){
-         console.log("Click")
          var divPadre=xbutton.parentNode
-         console.log(divPadre)
          divPadre.remove();
      })     
      });
  }
 
+
+function createBottomRead(unordlist){
+    const newbutton = document.createElement('button');
+    newbutton.className='readButton'
+    const newliElement= document.createElement('li')
+    newliElement.innerHTML="Readed: "
+    newliElement.appendChild(newbutton);
+    unordlist.appendChild(newliElement);
+    return unordlist;
+}
 
 function createBookCard(bookObj,currentBooks,currentXvectors){
     const bookdiv = document.createElement('div');
@@ -50,6 +56,8 @@ function createBookCard(bookObj,currentBooks,currentXvectors){
     const bookContainer = document.getElementById('book-container')
     bookContainer.appendChild(bookdiv)
     const listedBook = document.createElement('ul'), liTitle = document.createElement('li'), liAuthor = document.createElement('li'), liPages = document.createElement('li');
+
+
     bookdiv.appendChild(listedBook);
     liTitle.textContent = "Title: "+ bookObj.title;
     liAuthor.textContent="Author: "+bookObj.author;
@@ -57,12 +65,15 @@ function createBookCard(bookObj,currentBooks,currentXvectors){
     listedBook.appendChild(liTitle);
     listedBook.appendChild(liAuthor);
     listedBook.appendChild(liPages);
+    createBottomRead(listedBook);
 
     const deleteButton = document.createElement('button');
     deleteButton.textContent= "X"
     deleteButton.className='deleteButton'
     deleteButton.id='x-button'
     bookdiv.appendChild(deleteButton);
+
+
 
     captureClickforEach(captureXbtns(capturarDiv(currentBooks),currentXvectors));
 }
@@ -126,4 +137,3 @@ addButton.addEventListener('click',function(){
 defaultBooks(myBooks);
 
 captureClickforEach(captureXbtns(capturarDiv(allchildBooks),xButtons));
-console.log(xButtons,allchildBooks);
