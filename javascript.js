@@ -40,32 +40,43 @@ function capturarDiv(captureChild){
  }
 
 
-function createBottomRead(unordlist){
+function createBottomRead(unordlist,readedEstatus){
     const newbutton = document.createElement('button');
     newbutton.className='readButton'
     const newliElement= document.createElement('li')
     newliElement.innerHTML="Readed: "
     newliElement.appendChild(newbutton);
     unordlist.appendChild(newliElement);
+    if (readedEstatus == true) {
+        newbutton.classList.add('readedYes')
+    }else{
+        newbutton.classList.add('readedNo')
+    }
     return unordlist;
 }
 
+
+
 function createBookCard(bookObj,currentBooks,currentXvectors){
+    //Crear nuevo div 
     const bookdiv = document.createElement('div');
     bookdiv.className= 'book';
     const bookContainer = document.getElementById('book-container')
-    bookContainer.appendChild(bookdiv)
-    const listedBook = document.createElement('ul'), liTitle = document.createElement('li'), liAuthor = document.createElement('li'), liPages = document.createElement('li');
-
-
+    bookContainer.appendChild(bookdiv);
+    //Crear ul y li elements
+    const listedBook = document.createElement('ul'),
+     liTitle = document.createElement('li'), 
+     liAuthor = document.createElement('li'), 
+     liPages = document.createElement('li');
     bookdiv.appendChild(listedBook);
-    liTitle.textContent = "Title: "+ bookObj.title;
+    //Asignar contenido a elementos li desde el objeto
+    liTitle.textContent ="Title: "+bookObj.title;
     liAuthor.textContent="Author: "+bookObj.author;
     liPages.textContent="Pages: "+bookObj.pages;
     listedBook.appendChild(liTitle);
     listedBook.appendChild(liAuthor);
     listedBook.appendChild(liPages);
-    createBottomRead(listedBook);
+    createBottomRead(listedBook,bookObj.read);
 
     const deleteButton = document.createElement('button');
     deleteButton.textContent= "X"
@@ -87,8 +98,9 @@ function defaultBooks(bookArray){
     const titles = ["1984","The Hobbit","The Proccess"];
     const authors = ["G. Orwell","J.R.R. Tolkien", "F. Kafka"];
     const pages = ["269","310","264"];
+    const read =[true,false,true];
     for (let i = 0; i < titles.length; i++) {
-        const defaultBooks = new NewBook(titles[i],authors[i],pages[i])
+        const defaultBooks = new NewBook(titles[i],authors[i],pages[i],read[i])
         createBookCard(defaultBooks,allchildBooks,xButtons);
         bookArray.push(defaultBooks);
     }
