@@ -112,6 +112,15 @@ body{
     height: 2vh;
     border-radius: 5px;
 }
+.editButton{
+    grid-area: 3/2/4/3;
+    width: 5vh;
+    height: 3vh;
+    border-radius: 5px;
+    background: radial-gradient(lightgrey, lightsteelblue);
+    font-size: 1.5em;
+    font-family: "Outfit";
+}
 #backScreenForm{
     background: rgba(0, 0, 0, 0.584);
     position: absolute;

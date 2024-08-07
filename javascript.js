@@ -40,7 +40,7 @@ function capturarDiv(captureChild){
  }
 
 
-function createBottomRead(unordlist,readedEstatus){
+function createBottomRead(unordlist,readedEstatus){//Funcion que recibe un elemento li de una ul y crea y asigna un boton con determinada clase y text conten en funcion del parametro readedEstatus
     const readbotton = document.createElement('button');
     readbotton.className='readButton'
     const newliElement= document.createElement('li')
@@ -85,8 +85,10 @@ function createBookCard(bookObj,currentBooks,currentXvectors){
     deleteButton.className='deleteButton'
     deleteButton.id='x-button'
     bookdiv.appendChild(deleteButton);
-
-
+    const editButton = document.createElement('button')
+    editButton.classList.add('editButton');
+    editButton.textContent='Edit'
+    bookdiv.appendChild(editButton)
 
     captureClickforEach(captureXbtns(capturarDiv(currentBooks),currentXvectors));
 }
