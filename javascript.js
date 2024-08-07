@@ -41,16 +41,18 @@ function capturarDiv(captureChild){
 
 
 function createBottomRead(unordlist,readedEstatus){
-    const newbutton = document.createElement('button');
-    newbutton.className='readButton'
+    const readbotton = document.createElement('button');
+    readbotton.className='readButton'
     const newliElement= document.createElement('li')
     newliElement.innerHTML="Readed: "
-    newliElement.appendChild(newbutton);
+    newliElement.appendChild(readbotton);
     unordlist.appendChild(newliElement);
     if (readedEstatus == true) {
-        newbutton.classList.add('readedYes')
+        readbotton.classList.add('readedYes');
+        readbotton.textContent="Yes"
     }else{
-        newbutton.classList.add('readedNo')
+        readbotton.classList.add('readedNo')
+        readbotton.textContent="No"
     }
     return unordlist;
 }
@@ -108,15 +110,16 @@ function defaultBooks(bookArray){
 }
 
 
-const newButton = document.getElementById('new-button');
-//Aparece el formulario para cargar el libro nuevo
+const newButton = document.getElementById('new-button');//Capturar el boton NEW-BOOK
+//Aparece el formulario para cargar el libro nuevo cambiando la propiedad display a flex
 newButton.addEventListener('click',function(){
     const formScreen = document.getElementById('backScreenForm');
     formScreen.style.display="flex";
 })
 
+
 const cancelButton = document.getElementById('cancelButton');
-cancelButton.addEventListener('click',function(){
+cancelButton.addEventListener('click',function(){//Limpiamos los inputs al cancelar
 
     const getTitle  = document.getElementById('title');
     const getAuthor  = document.getElementById('author');
@@ -124,7 +127,7 @@ cancelButton.addEventListener('click',function(){
     clearInputs(getTitle,getAuthor,getPages);  
     
     const formScreen = document.getElementById('backScreenForm');
-    formScreen.style.display="none";
+    formScreen.style.display="none";//Ocultamos div con formulario
 })
 
 
@@ -134,8 +137,9 @@ addButton.addEventListener('click',function(){
     const getTitle  = document.getElementById('title');
     const getAuthor  = document.getElementById('author');
     const getPages  = document.getElementById('pages');
+    const getRead = document.getElementById('mycheckbox');
     //Creo nuevo objeto con los valores capturados y lo pusheo en el array
-    let addBook = new NewBook(getTitle.value,getAuthor.value,getPages.value);
+    let addBook = new NewBook(getTitle.value,getAuthor.value,getPages.value,getRead.checked);
     myBooks.push(addBook);
     console.log(myBooks);
     createBookCard(addBook,allchildBooks,xButtons);
