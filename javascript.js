@@ -19,8 +19,6 @@ function capturarDiv(captureChild){
     const bookContainer = document.getElementById("book-container");
     //Captura los divs hijos del div bookContainer
     captureChild = bookContainer.children;
-    console.log(captureChild)
-
     return captureChild;
 }//Retorna una HTMLCollection con los divs class book
  
@@ -28,10 +26,7 @@ function capturarDiv(captureChild){
  function captureXbtns(capturedChild,xVector){
      for (let i = 0; i < capturedChild.length; i++) {
          xVector.push(capturedChild[i].children[1]);
-     console.log(capturedChild[i].children[0])
-
      }
-     console.log(xVector)
      return xVector
  }
  //Funcion que pushea todos los elementos editButtons
@@ -39,7 +34,6 @@ function capturarDiv(captureChild){
     for (let i = 0; i < capturedChild.length; i++) {
         editButtons.push(capturedChild[i].children[2])
     }
-    console.log(editButtons)
     return editButtons;
  }
 
@@ -169,7 +163,7 @@ addButton.addEventListener('click',function(){
     let addBook = new NewBook(getTitle.value,getAuthor.value,getPages.value,getRead.checked);
     myBooks.push(addBook);
     console.log(myBooks);
-    createBookCard(addBook,allchildBooks,xButtons);
+    createBookCard(addBook,allchildBooks,xButtons,editButtons);
     //Limpiar inputs
     clearInputs(getTitle,getAuthor,getPages);  
     //Ocultar formulario
@@ -180,4 +174,4 @@ addButton.addEventListener('click',function(){
 defaultBooks(myBooks);
 
 captureClickforRemove(captureXbtns(capturarDiv(allchildBooks),xButtons));
-//captureClickforEdit(captureEditbuttons(capturarDiv(allchildBooks),editButtons));
+captureClickforEdit(captureEditbuttons(capturarDiv(allchildBooks),editButtons));
