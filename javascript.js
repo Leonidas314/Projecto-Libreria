@@ -13,14 +13,14 @@ function clearInputs(title,author,pages){
  var xButtons = [];
  var editButtons = [];
  var allchildBooks; 
- //Funcion que al ser llamada captura al contenedor y a los divs "Books hijos"
+ //Funcion que al ser llamada captura al contenedor y Retorna una HTMLCollection con los divs class book
 function capturarDiv(captureChild){
     //Capturar el book-container
     const bookContainer = document.getElementById("book-container");
     //Captura los divs hijos del div bookContainer
     captureChild = bookContainer.children;
     return captureChild;
-}//Retorna una HTMLCollection con los divs class book
+}
  
  //Funcion que pushea en un vector los elementos "x-buttons"
  function captureXbtns(capturedChild,xVector){
@@ -38,7 +38,7 @@ function capturarDiv(captureChild){
  }
 
 
- //Obtener el vector
+ //Obtener el vector 
  //Usar el vector en una funcion para capturar el evento "Click" en cada boton x
  //Asignar el metodo remove() al div padre del evento capturado al boton correspondiente
  function captureClickforRemove(vector){
@@ -51,7 +51,12 @@ function capturarDiv(captureChild){
 
 function captureClickforEdit(vector){
     vector.forEach(editbutton =>{ editbutton.addEventListener('click', function(){
-        console.log("edit buton capturado")
+        let fatherNode = editbutton.parentNode;//closest('div')
+        let liElements = fatherNode.querySelectorAll('li')
+        let obteinedTitle = liElements[0].textContent,
+        obteinedAuthor = liElements[1].textContent;
+        //console.log("edit buton capturado, info del div capturado:"+ fatherNode.innerHTML)
+        console.log("Cosas obtenidas del padre capturado:"+liElements[0].innerHTML)
     })})
 }
 
@@ -72,6 +77,11 @@ function createBottomRead(unordlist,readedEstatus){//Funcion que recibe un eleme
     return unordlist;
 }
 
+//Funcion que al capturar el evento click en cada div book debe desplegar un div para edicion
+//Necesito una funcion que al hacef click en Edit capture la informacion del div para matchearla con la del objeto que modificarla
+function BookDivsInfo(){
+
+}
 
 
 function createBookCard(bookObj,currentBooks,currentXvectors,currentEditbutton){
@@ -112,6 +122,7 @@ function createBookCard(bookObj,currentBooks,currentXvectors,currentEditbutton){
 }
 
 
+//Inicializacion del array de objetos que guarda los objetos "book"
 const myBooks = [];
 
 
@@ -175,3 +186,5 @@ defaultBooks(myBooks);
 
 captureClickforRemove(captureXbtns(capturarDiv(allchildBooks),xButtons));
 captureClickforEdit(captureEditbuttons(capturarDiv(allchildBooks),editButtons));
+
+console.log(myBooks)
