@@ -11,6 +11,7 @@ function clearInputs(title,author,pages){
  }
 
  var xButtons = [];
+ var editButtons = [];
  var allchildBooks; 
  //Funcion que al ser llamada captura al contenedor y a los divs "Books hijos"
 function capturarDiv(captureChild){
@@ -18,20 +19,35 @@ function capturarDiv(captureChild){
     const bookContainer = document.getElementById("book-container");
     //Captura los divs hijos del div bookContainer
     captureChild = bookContainer.children;
+    console.log(captureChild)
+
     return captureChild;
-}
+}//Retorna una HTMLCollection con los divs class book
  
  //Funcion que pushea en un vector los elementos "x-buttons"
  function captureXbtns(capturedChild,xVector){
      for (let i = 0; i < capturedChild.length; i++) {
          xVector.push(capturedChild[i].children[1]);
+     console.log(capturedChild[i].children[0])
+
      }
+     console.log(xVector)
      return xVector
  }
+ //Funcion que pushea todos los elementos editButtons
+ function captureEditbuttons(capturedChild,editButtons){
+    for (let i = 0; i < capturedChild.length; i++) {
+        editButtons.push(capturedChild[i].children[2])
+    }
+    console.log(editButtons)
+    return editButtons;
+ }
+
+
  //Obtener el vector
  //Usar el vector en una funcion para capturar el evento "Click" en cada boton x
  //Asignar el metodo remove() al div padre del evento capturado al boton correspondiente
- function captureClickforEach(vector){
+ function captureClickforRemove(vector){
      vector.forEach(xbutton => { xbutton.addEventListener('click',function(){
          var divPadre=xbutton.parentNode
          divPadre.remove();
@@ -39,8 +55,13 @@ function capturarDiv(captureChild){
      });
  }
 
+function captureClickforEdit(vector){
+    vector.forEach(editbutton =>{ editbutton.addEventListener('click', function(){
+        console.log("edit buton capturado")
+    })})
+}
 
-function createBottomRead(unordlist,readedEstatus){//Funcion que recibe un elemento li de una ul y crea y asigna un boton con determinada clase y text conten en funcion del parametro readedEstatus
+function createBottomRead(unordlist,readedEstatus){//Funcion que recibe un elemento li de una ul y crea y asigna un boton con determinada clase y texto en funcion del parametro readedEstatus (Booleano)
     const readbotton = document.createElement('button');
     readbotton.className='readButton'
     const newliElement= document.createElement('li')
@@ -59,7 +80,7 @@ function createBottomRead(unordlist,readedEstatus){//Funcion que recibe un eleme
 
 
 
-function createBookCard(bookObj,currentBooks,currentXvectors){
+function createBookCard(bookObj,currentBooks,currentXvectors,currentEditbutton){
     //Crear nuevo div 
     const bookdiv = document.createElement('div');
     bookdiv.className= 'book';
@@ -85,13 +106,17 @@ function createBookCard(bookObj,currentBooks,currentXvectors){
     deleteButton.className='deleteButton'
     deleteButton.id='x-button'
     bookdiv.appendChild(deleteButton);
+
+    //Crear editboton para habilitar la edicion del bookdiv
     const editButton = document.createElement('button')
     editButton.classList.add('editButton');
     editButton.textContent='Edit'
     bookdiv.appendChild(editButton)
 
-    captureClickforEach(captureXbtns(capturarDiv(currentBooks),currentXvectors));
+    captureClickforRemove(captureXbtns(capturarDiv(currentBooks),currentXvectors));
+    captureClickforEdit(captureEditbuttons(capturarDiv(currentBooks),currentEditbutton))
 }
+
 
 const myBooks = [];
 
@@ -105,7 +130,7 @@ function defaultBooks(bookArray){
     const read =[true,false,true];
     for (let i = 0; i < titles.length; i++) {
         const defaultBooks = new NewBook(titles[i],authors[i],pages[i],read[i])
-        createBookCard(defaultBooks,allchildBooks,xButtons);
+        createBookCard(defaultBooks,allchildBooks,xButtons,editButtons);
         bookArray.push(defaultBooks);
     }
     return bookArray;
@@ -154,4 +179,5 @@ addButton.addEventListener('click',function(){
 
 defaultBooks(myBooks);
 
-captureClickforEach(captureXbtns(capturarDiv(allchildBooks),xButtons));
+captureClickforRemove(captureXbtns(capturarDiv(allchildBooks),xButtons));
+//captureClickforEdit(captureEditbuttons(capturarDiv(allchildBooks),editButtons));

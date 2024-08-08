@@ -118,8 +118,8 @@ body{
     height: 3vh;
     border-radius: 5px;
     background: radial-gradient(lightgrey, lightsteelblue);
-    font-size: 1.5em;
-    font-family: "Outfit";
+    font-size: 1em;
+    margin-right: 2vw;
 }
 #backScreenForm{
     background: rgba(0, 0, 0, 0.584);
