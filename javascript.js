@@ -50,7 +50,9 @@ function capturarDiv(captureChild){
  }
 
 function captureClickforEdit(vector){
-    vector.forEach(editbutton =>{ editbutton.addEventListener('click', function(){
+    vector.forEach(editbutton =>{ editbutton.addEventListener('click', function(){      
+        const backscreen = document.getElementById('backScreenEdit');
+        backscreen.style.display="flex";
         let fatherNode = editbutton.parentNode;//closest('div')
         let liElements = fatherNode.querySelectorAll('li')
         let obteinedTitle = liElements[0].textContent,
@@ -141,15 +143,18 @@ function defaultBooks(bookArray){
     return bookArray;
 }
 
-
-const newButton = document.getElementById('new-button');//Capturar el boton NEW-BOOK
 //Aparece el formulario para cargar el libro nuevo cambiando la propiedad display a flex
+const newButton = document.getElementById('new-button');//Capturar el boton NEW-BOOK
 newButton.addEventListener('click',function(){
     const formScreen = document.getElementById('backScreenForm');
+    console.log("clixk")
     formScreen.style.display="flex";
 })
 
-
+const cancelEdit = document.getElementById('cancelEdit');
+cancelEdit.addEventListener('click',function(){
+    backScreenEdit.style.display="none";
+})
 const cancelButton = document.getElementById('cancelButton');
 cancelButton.addEventListener('click',function(){//Limpiamos los inputs al cancelar
 
