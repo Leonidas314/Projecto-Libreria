@@ -98,13 +98,15 @@ body{
 .readedNo{
     background: rgb(239, 79, 54);
     border: 2px solid rgb(255, 77, 0);
-
+    font-family: "PinyonScript";
+    font-size: 1em
 }
 
 .readedYes{
     background: rgb(30, 136, 28);
     border: 2px solid rgb(0, 255, 60);
-
+    font-family: "PinyonScript";
+    font-size: 1em
 }
 .deleteButton{
     grid-area: 1/2/2/3;
@@ -160,7 +162,7 @@ body{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    border: 2px solid rgba(218, 13, 61, 0.878);
+    border: 2px solid rgba(174, 13, 218, 0.878);
     border-radius: 10px;
 }
 #form > fieldset > span , legend , #editBook > fieldset > span , legend{
@@ -190,7 +192,7 @@ body{
     height: 5vh;
     font-family: 'Outfit';
     color: rgba(201, 201, 113, 0.833);
-    background: rgba(218, 13, 61, 0.878) ;
+    background: rgba(13, 102, 218, 0.878) ;
     border-radius: 15px;
     font-size: 1.5em;;
 }

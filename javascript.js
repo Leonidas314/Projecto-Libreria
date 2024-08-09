@@ -1,4 +1,5 @@
 
+
 function NewBook(title,author,pages,read){
     this.title=title;
     this.author=author;
@@ -55,14 +56,25 @@ function captureClickforEdit(vector){
     vector.forEach(editbutton =>{ editbutton.addEventListener('click', function(){      
         const backscreen = document.getElementById('backScreenEdit');
         backscreen.style.display="flex";
+
         let fatherNode = editbutton.parentNode;//closest('div')
-        let liElements = fatherNode.querySelectorAll('li')
-        let obteinedTitle = liElements[0].textContent,
-        obteinedAuthor = liElements[1].textContent;
-        //console.log("edit buton capturado, info del div capturado:"+ fatherNode.innerHTML)
-        console.log("Cosas obtenidas del padre capturado:"+liElements[0].innerHTML)
+        console.log(fatherNode)
+
+        let liElements = fatherNode.querySelectorAll('li');
+        let obtainedTitle = liElements[0].textContent,
+        obtainedAuthor = liElements[1].textContent,
+        obtainedPages = liElements[2].textContent;
+        //obtainedReadStatus = liElements[3];
+        let titleInput = document.getElementById('title-edit'),
+        authorInput= document.getElementById('author-edit'),
+        pagesInput = document.getElementById('pages-edit');
+        titleInput.value=obtainedTitle;
+        authorInput.value=obtainedAuthor;
+        pagesInput.value = obtainedPages;
     })})
 }
+
+
 
 function createBottomRead(unordlist,readedEstatus){//Funcion que recibe un elemento li de una ul y crea y asigna un boton con determinada clase y texto en funcion del parametro readedEstatus (Booleano)
     const readbotton = document.createElement('button');
@@ -97,15 +109,21 @@ function createBookCard(bookObj,currentBooks,currentXvectors,currentEditbutton){
     const listedBook = document.createElement('ul'),
      liTitle = document.createElement('li'), 
      liAuthor = document.createElement('li'), 
-     liPages = document.createElement('li');
+     liPages = document.createElement('li'),
+     br = document.createElement('br');
+     paraphTitle.value="Title:"
+     paraphAuthor.value="Author:"
+     paraphPages.value="Pages:"
     bookdiv.appendChild(listedBook);
     //Asignar contenido a elementos li desde el objeto
-    liTitle.textContent ="Title: "+bookObj.title;
-    liAuthor.textContent="Author: "+bookObj.author;
-    liPages.textContent="Pages: "+bookObj.pages;
+    liTitle.textContent =bookObj.title;
+    liAuthor.textContent=bookObj.author;
+    liPages.textContent=bookObj.pages;
+    //Asignar los hijos al listedBook de forma correcta:
     listedBook.appendChild(liTitle);
     listedBook.appendChild(liAuthor);
     listedBook.appendChild(liPages);
+
     createBottomRead(listedBook,bookObj.read);
 
     const deleteButton = document.createElement('button');
