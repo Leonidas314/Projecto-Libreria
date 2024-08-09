@@ -13,6 +13,8 @@ function clearInputs(title,author,pages){
  var xButtons = [];
  var editButtons = [];
  var allchildBooks; 
+//Inicializacion del array de objetos que guarda los objetos "book"
+const myBooks = [];
  //Funcion que al ser llamada captura al contenedor y Retorna una HTMLCollection con los divs class book
 function capturarDiv(captureChild){
     //Capturar el book-container
@@ -85,7 +87,6 @@ function BookDivsInfo(){
 
 }
 
-
 function createBookCard(bookObj,currentBooks,currentXvectors,currentEditbutton){
     //Crear nuevo div 
     const bookdiv = document.createElement('div');
@@ -122,11 +123,6 @@ function createBookCard(bookObj,currentBooks,currentXvectors,currentEditbutton){
     captureClickforRemove(captureXbtns(capturarDiv(currentBooks),currentXvectors));
     captureClickforEdit(captureEditbuttons(capturarDiv(currentBooks),currentEditbutton))
 }
-
-
-//Inicializacion del array de objetos que guarda los objetos "book"
-const myBooks = [];
-
 
 //Funcion que crea por defecto tres cartas de libros
 
