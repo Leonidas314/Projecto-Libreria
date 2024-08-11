@@ -51,29 +51,44 @@ function capturarDiv(captureChild){
      })     
      });
  }
-
+let fatherNode;
+let liElements, obtainedAuthor, obtainedPages , obtainedTitle;
+let titleInput,authorInput,pagesInput;
+let backscreen ;
 function captureClickforEdit(vector){
     vector.forEach(editbutton =>{ editbutton.addEventListener('click', function(){      
-        const backscreen = document.getElementById('backScreenEdit');
+        backscreen = document.getElementById('backScreenEdit');
         backscreen.style.display="flex";
-
-        let fatherNode = editbutton.parentNode;//closest('div')
-        console.log(fatherNode)
-
-        let liElements = fatherNode.querySelectorAll('li');
-        let obtainedTitle = liElements[0].textContent,
-        obtainedAuthor = liElements[1].textContent,
-        obtainedPages = liElements[2].textContent;
+        fatherNode = editbutton.parentNode;//closest('div')
+        liElements = fatherNode.querySelectorAll('li');
+        obtainedTitle = liElements[0].textContent
+        obtainedAuthor = liElements[1].textContent
+        obtainedPages = liElements[2].textContent
         //obtainedReadStatus = liElements[3];
-        let titleInput = document.getElementById('title-edit'),
-        authorInput= document.getElementById('author-edit'),
-        pagesInput = document.getElementById('pages-edit');
+        titleInput = document.getElementById('title-edit')
+        authorInput= document.getElementById('author-edit')
+        pagesInput = document.getElementById('pages-edit')
         titleInput.value=obtainedTitle;
         authorInput.value=obtainedAuthor;
         pagesInput.value = obtainedPages;
+
     })})
+
 }
 
+const cancelEdit = document.getElementById('cancelEdit');//PORQUE FUNCIONA ESTO=?
+cancelEdit.addEventListener('click',function(){
+
+    backScreenEdit.style.display="none";
+});
+
+const doneEdit = document.getElementById('done-edit')
+doneEdit.addEventListener('click',function(){
+    liElements[0].textContent=titleInput.value;
+    liElements[1].textContent=authorInput.value;
+    liElements[2].textContent=pagesInput.value;
+    backscreen.style.display="none";
+})
 
 
 function createBottomRead(unordlist,readedEstatus){//Funcion que recibe un elemento li de una ul y crea y asigna un boton con determinada clase y texto en funcion del parametro readedEstatus (Booleano)
@@ -111,9 +126,6 @@ function createBookCard(bookObj,currentBooks,currentXvectors,currentEditbutton){
      liAuthor = document.createElement('li'), 
      liPages = document.createElement('li'),
      br = document.createElement('br');
-     paraphTitle.value="Title:"
-     paraphAuthor.value="Author:"
-     paraphPages.value="Pages:"
     bookdiv.appendChild(listedBook);
     //Asignar contenido a elementos li desde el objeto
     liTitle.textContent =bookObj.title;
@@ -165,10 +177,7 @@ newButton.addEventListener('click',function(){
     formScreen.style.display="flex";
 })
 
-const cancelEdit = document.getElementById('cancelEdit');
-cancelEdit.addEventListener('click',function(){
-    backScreenEdit.style.display="none";
-})
+
 const cancelButton = document.getElementById('cancelButton');
 cancelButton.addEventListener('click',function(){//Limpiamos los inputs al cancelar
 
