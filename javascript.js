@@ -11,9 +11,15 @@ function clearInputs(title,author,pages){
     return title.value = "",author.value="",pages.value="";
  }
 
- var xButtons = [];
- var editButtons = [];
- var allchildBooks; 
+var xButtons = [];
+var editButtons = [];
+var allchildBooks; 
+var indextToRemove;
+
+let fatherNode;
+let liElements, obtainedAuthor, obtainedPages , obtainedTitle;
+let titleInput,authorInput,pagesInput;
+let backscreen;
 //Inicializacion del array de objetos que guarda los objetos "book"
 const myBooks = [];
  //Funcion que al ser llamada captura al contenedor y Retorna una HTMLCollection con los divs class book
@@ -39,22 +45,21 @@ function capturarDiv(captureChild){
     }
     return editButtons;
  }
-
-
  //Obtener el vector 
  //Usar el vector en una funcion para capturar el evento "Click" en cada boton x
  //Asignar el metodo remove() al div padre del evento capturado al boton correspondiente
  function captureClickforRemove(vector){
      vector.forEach(xbutton => { xbutton.addEventListener('click',function(){
          var divPadre=xbutton.parentNode
+         var ulchild= divPadre.firstChild;
+         var lichild= ulchild.querySelectorAll('li')
+        RemovefromArray(myBooks, lichild[0].textContent, lichild[1].textContent, lichild[2].textContent)
+        // console.log(divPadre)
+        console.log(lichild[0].textContent)
          divPadre.remove();
-     })     
+     })    
      });
  }
-let fatherNode;
-let liElements, obtainedAuthor, obtainedPages , obtainedTitle;
-let titleInput,authorInput,pagesInput;
-let backscreen ;
 function captureClickforEdit(vector){
     vector.forEach(editbutton =>{ editbutton.addEventListener('click', function(){      
         backscreen = document.getElementById('backScreenEdit');
@@ -102,7 +107,14 @@ function FindIndex(bookArray,title,author,pages){
         }
     }
 }
-
+function RemovefromArray(bookArray,title,author,pages){
+    let j = 0;
+    while ((bookArray[j].title!=title && bookArray[j].author!=author && bookArray[j].pages!=pages)) {
+        j++;
+    }
+    bookArray.splice(j,1);
+    console.log(myBooks)
+}
 function createBottomRead(unordlist,readedEstatus){//Funcion que recibe un elemento li de una ul y crea y asigna un boton con determinada clase y texto en funcion del parametro readedEstatus (Booleano)
     const readbotton = document.createElement('button');
     readbotton.className='readButton'
