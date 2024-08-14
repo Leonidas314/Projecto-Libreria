@@ -24,7 +24,7 @@ function capturarDiv(captureChild){
     captureChild = bookContainer.children;
     return captureChild;
 }
- 
+
  //Funcion que pushea en un vector los elementos "x-buttons"
  function captureXbtns(capturedChild,xVector){
      for (let i = 0; i < capturedChild.length; i++) {
@@ -84,12 +84,24 @@ cancelEdit.addEventListener('click',function(){
 
 const doneEdit = document.getElementById('done-edit')
 doneEdit.addEventListener('click',function(){
+    var index;
+    index=FindIndex(myBooks,liElements[0].textContent,liElements[1].textContent,liElements[2].textContent)
+    myBooks[index].title=titleInput.value
+    myBooks[index].author=authorInput.value
+    myBooks[index].pages=pagesInput.value
     liElements[0].textContent=titleInput.value;
     liElements[1].textContent=authorInput.value;
     liElements[2].textContent=pagesInput.value;
     backscreen.style.display="none";
 })
-
+//Funcion que recorre el array de books y encuentra el libro a editar
+function FindIndex(bookArray,title,author,pages){
+    for (let i = 0; i < bookArray.length; i++) {
+        if (bookArray[i].title==title && bookArray[i].author==author && bookArray[i].pages==pages) {
+         return i;   
+        }
+    }
+}
 
 function createBottomRead(unordlist,readedEstatus){//Funcion que recibe un elemento li de una ul y crea y asigna un boton con determinada clase y texto en funcion del parametro readedEstatus (Booleano)
     const readbotton = document.createElement('button');
@@ -109,10 +121,6 @@ function createBottomRead(unordlist,readedEstatus){//Funcion que recibe un eleme
 }
 
 //Funcion que al capturar el evento click en cada div book debe desplegar un div para edicion
-//Necesito una funcion que al hacef click en Edit capture la informacion del div para matchearla con la del objeto que modificarla
-function BookDivsInfo(){
-
-}
 
 function createBookCard(bookObj,currentBooks,currentXvectors,currentEditbutton){
     //Crear nuevo div 
@@ -124,8 +132,7 @@ function createBookCard(bookObj,currentBooks,currentXvectors,currentEditbutton){
     const listedBook = document.createElement('ul'),
      liTitle = document.createElement('li'), 
      liAuthor = document.createElement('li'), 
-     liPages = document.createElement('li'),
-     br = document.createElement('br');
+     liPages = document.createElement('li');
     bookdiv.appendChild(listedBook);
     //Asignar contenido a elementos li desde el objeto
     liTitle.textContent =bookObj.title;
@@ -173,7 +180,6 @@ function defaultBooks(bookArray){
 const newButton = document.getElementById('new-button');//Capturar el boton NEW-BOOK
 newButton.addEventListener('click',function(){
     const formScreen = document.getElementById('backScreenForm');
-    console.log("clixk")
     formScreen.style.display="flex";
 })
 
