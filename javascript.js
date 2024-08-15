@@ -19,7 +19,6 @@ function NewBook(title,author,pages,read){
 function clearInputs(title,author,pages){
     return title.value = "",author.value="",pages.value="";
  }
-
  //Funcion que al ser llamada captura al contenedor y Retorna una HTMLCollection con los divs class book
 function capturarDiv(captureChild){
     //Capturar el book-container
@@ -28,7 +27,6 @@ function capturarDiv(captureChild){
     captureChild = bookContainer.children;
     return captureChild;
 }
-
  //Funcion que pushea en un vector los elementos "x-buttons"
  function captureXbtns(capturedChild,xVector){
      for (let i = 0; i < capturedChild.length; i++) {
@@ -68,15 +66,19 @@ function captureClickforEdit(vector){
         obtainedAuthor = liElements[1].textContent
         obtainedPages = liElements[2].textContent
         obtainedReadStatus = liElements[3].lastChild;
+        console.log(obtainedReadStatus.textContent)
         titleInput = document.getElementById('title-edit')
         authorInput= document.getElementById('author-edit')
         pagesInput = document.getElementById('pages-edit')
         readButtonInput=document.getElementById('mycheckbox-edit')
-        console.log(readButtonInput.checked)
         titleInput.value=obtainedTitle;
         authorInput.value=obtainedAuthor;
         pagesInput.value = obtainedPages;
-
+        if (obtainedReadStatus.textContent=="Yes") {
+            readButtonInput.checked=true
+        }else{
+            readButtonInput.checked=false
+        }
     })})
 
 }
@@ -112,9 +114,7 @@ function createBottomRead(unordlist,readedEstatus){//Funcion que recibe un eleme
     }
     return unordlist;
 }
-
 //Funcion que al capturar el evento click en cada div book debe desplegar un div para edicion
-
 function createBookCard(bookObj,currentBooks,currentXvectors,currentEditbutton){
     //Crear nuevo div 
     const bookdiv = document.createElement('div');
@@ -153,9 +153,7 @@ function createBookCard(bookObj,currentBooks,currentXvectors,currentEditbutton){
     captureClickforRemove(captureXbtns(capturarDiv(currentBooks),currentXvectors));
     captureClickforEdit(captureEditbuttons(capturarDiv(currentBooks),currentEditbutton))
 }
-
 //Funcion que crea por defecto tres cartas de libros
-
 function defaultBooks(bookArray){
     const titles = ["1984","The Hobbit","The Proccess"];
     const authors = ["G. Orwell","J.R.R. Tolkien", "F. Kafka"];
@@ -168,15 +166,12 @@ function defaultBooks(bookArray){
     }
     return bookArray;
 }
-
 //Aparece el formulario para cargar el libro nuevo cambiando la propiedad display a flex
 const newButton = document.getElementById('new-button');//Capturar el boton NEW-BOOK
 newButton.addEventListener('click',function(){
     const formScreen = document.getElementById('backScreenForm');
     formScreen.style.display="flex";
 })
-
-
 const cancelButton = document.getElementById('cancelButton');
 cancelButton.addEventListener('click',function(){//Limpiamos los inputs al cancelar
 
@@ -188,8 +183,6 @@ cancelButton.addEventListener('click',function(){//Limpiamos los inputs al cance
     const formScreen = document.getElementById('backScreenForm');
     formScreen.style.display="none";//Ocultamos div con formulario
 })
-
-
 const addButton = document.getElementById('addButton');
 addButton.addEventListener('click',function(){
     //Capturo inputs.values
@@ -208,13 +201,11 @@ addButton.addEventListener('click',function(){
     const formScreen = document.getElementById('backScreenForm');
     formScreen.style.display="none";
 })
-
 const cancelEdit = document.getElementById('cancelEdit');//PORQUE FUNCIONA ESTO=?
 cancelEdit.addEventListener('click',function(){
 
     backscreen.style.display="none";
 });
-
 const doneEdit = document.getElementById('done-edit')
 doneEdit.addEventListener('click',function(){
     var index;
@@ -238,9 +229,8 @@ doneEdit.addEventListener('click',function(){
     }
     backscreen.style.display="none";
 })
-defaultBooks(myBooks);
 
+defaultBooks(myBooks);
 captureClickforRemove(captureXbtns(capturarDiv(allchildBooks),xButtons));
 captureClickforEdit(captureEditbuttons(capturarDiv(allchildBooks),editButtons));
-
 console.log(myBooks)
