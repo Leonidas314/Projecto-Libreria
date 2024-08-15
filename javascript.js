@@ -1,4 +1,13 @@
-
+var xButtons = [];
+var editButtons = [];
+var allchildBooks; 
+var indextToRemove;
+let fatherNode;
+let liElements, obtainedAuthor, obtainedPages , obtainedTitle;
+let titleInput,authorInput,pagesInput;
+let backscreen;
+//Inicializacion del array de objetos que guarda los objetos "book"
+const myBooks = [];
 
 function NewBook(title,author,pages,read){
     this.title=title;
@@ -11,17 +20,6 @@ function clearInputs(title,author,pages){
     return title.value = "",author.value="",pages.value="";
  }
 
-var xButtons = [];
-var editButtons = [];
-var allchildBooks; 
-var indextToRemove;
-
-let fatherNode;
-let liElements, obtainedAuthor, obtainedPages , obtainedTitle;
-let titleInput,authorInput,pagesInput;
-let backscreen;
-//Inicializacion del array de objetos que guarda los objetos "book"
-const myBooks = [];
  //Funcion que al ser llamada captura al contenedor y Retorna una HTMLCollection con los divs class book
 function capturarDiv(captureChild){
     //Capturar el book-container
@@ -69,10 +67,12 @@ function captureClickforEdit(vector){
         obtainedTitle = liElements[0].textContent
         obtainedAuthor = liElements[1].textContent
         obtainedPages = liElements[2].textContent
-        //obtainedReadStatus = liElements[3];
+        obtainedReadStatus = liElements[3].lastChild;
         titleInput = document.getElementById('title-edit')
         authorInput= document.getElementById('author-edit')
         pagesInput = document.getElementById('pages-edit')
+        readButtonInput=document.getElementById('mycheckbox-edit')
+        console.log(readButtonInput.checked)
         titleInput.value=obtainedTitle;
         authorInput.value=obtainedAuthor;
         pagesInput.value = obtainedPages;
@@ -80,25 +80,6 @@ function captureClickforEdit(vector){
     })})
 
 }
-
-const cancelEdit = document.getElementById('cancelEdit');//PORQUE FUNCIONA ESTO=?
-cancelEdit.addEventListener('click',function(){
-
-    backScreenEdit.style.display="none";
-});
-
-const doneEdit = document.getElementById('done-edit')
-doneEdit.addEventListener('click',function(){
-    var index;
-    index=FindIndex(myBooks,liElements[0].textContent,liElements[1].textContent,liElements[2].textContent)
-    myBooks[index].title=titleInput.value
-    myBooks[index].author=authorInput.value
-    myBooks[index].pages=pagesInput.value
-    liElements[0].textContent=titleInput.value;
-    liElements[1].textContent=authorInput.value;
-    liElements[2].textContent=pagesInput.value;
-    backscreen.style.display="none";
-})
 //Funcion que recorre el array de books y encuentra el libro a editar
 function FindIndex(bookArray,title,author,pages){
     for (let i = 0; i < bookArray.length; i++) {
@@ -228,6 +209,35 @@ addButton.addEventListener('click',function(){
     formScreen.style.display="none";
 })
 
+const cancelEdit = document.getElementById('cancelEdit');//PORQUE FUNCIONA ESTO=?
+cancelEdit.addEventListener('click',function(){
+
+    backscreen.style.display="none";
+});
+
+const doneEdit = document.getElementById('done-edit')
+doneEdit.addEventListener('click',function(){
+    var index;
+    index=FindIndex(myBooks,liElements[0].textContent,liElements[1].textContent,liElements[2].textContent)
+    myBooks[index].title=titleInput.value
+    myBooks[index].author=authorInput.value
+    myBooks[index].pages=pagesInput.value
+    myBooks[index].read=readButtonInput.checked
+    liElements[0].textContent=titleInput.value;
+    liElements[1].textContent=authorInput.value;
+    liElements[2].textContent=pagesInput.value;
+    readbottonEdited=liElements[3].lastChild;
+    readbottonEdited.classList.remove('readedYes')
+    readbottonEdited.classList.remove('readedNo')
+    if (readButtonInput.checked == true) {
+        readbottonEdited.classList.add('readedYes');
+        readbottonEdited.textContent="Yes"
+    }else{
+        readbottonEdited.classList.add('readedNo')
+        readbottonEdited.textContent="No"
+    }
+    backscreen.style.display="none";
+})
 defaultBooks(myBooks);
 
 captureClickforRemove(captureXbtns(capturarDiv(allchildBooks),xButtons));
